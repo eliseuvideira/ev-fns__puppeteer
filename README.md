@@ -2,7 +2,7 @@
 
 Async puppeteer handler, that manages creating and closing a browser
 
-- puppeteer `(source: string, destination = source + ".gz") => Promise<void>`
+- withBrowser `(handler: (browser: puppeteer.Browser, page: puppeteer.Page) => Promise<void>) => Promise<void>`
 
 ## Install
 
