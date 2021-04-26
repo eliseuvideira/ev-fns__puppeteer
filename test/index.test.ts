@@ -1,17 +1,25 @@
-describe("index", () => {
-  it("prints to the console", () => {
-    expect.assertions(2);
+import puppeteer from "puppeteer";
+import { withBrowser } from "../src/index";
 
-    const log = jest.fn();
-    const _ = console.log;
-    console.log = log;
+describe("withBrowser", () => {
+  it("launches a browser", async () => {
+    expect.assertions(4);
+    const close = jest.fn();
+    const launch = jest.fn();
+    const browser = { pages: () => [1, 2], close };
+    launch.mockReturnValue(browser);
+    const _ = puppeteer.launch;
+    puppeteer.launch = launch;
 
     try {
-      require("../src/index");
-      expect(log).toHaveBeenCalledTimes(1);
-      expect(log).toHaveBeenCalledWith("Hello World");
+      await withBrowser(async (browser, page) => {
+        expect(browser).toBe(browser);
+        expect(page).toBe(browser.pages()[0]);
+      });
+      expect(launch).toHaveBeenCalledTimes(1);
+      expect(close).toHaveBeenCalledTimes(1);
     } finally {
-      console.log = _;
+      puppeteer.launch = _;
     }
   });
 });

@@ -19,5 +19,8 @@
   },
   "keywords": [
     "puppeteer"
-  ]
+  ],
+  "dependencies": {
+    "puppeteer": "^9.0.0"
+  }
 }

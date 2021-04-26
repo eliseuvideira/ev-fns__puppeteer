@@ -1,1 +1,1 @@
-console.log("Hello World");
+export { withBrowser } from "./functions/withBrowser";
