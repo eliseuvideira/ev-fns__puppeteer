@@ -14,7 +14,8 @@ describe("withBrowser", () => {
     try {
       await withBrowser(async (browser, page) => {
         expect(browser).toBe(browser);
-        expect(page).toBe(browser.pages()[0]);
+        const pages = await browser.pages();
+        expect(page).toBe(pages[0]);
       });
       expect(launch).toHaveBeenCalledTimes(1);
       expect(close).toHaveBeenCalledTimes(1);
