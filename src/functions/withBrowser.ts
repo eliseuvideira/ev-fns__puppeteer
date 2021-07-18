@@ -1,7 +1,8 @@
 import puppeteer from "puppeteer";
 
 export const withBrowser = async (
-  handler: (browser: puppeteer.Browser, page: puppeteer.Page) => Promise<void>
+  handler: (browser: puppeteer.Browser, page: puppeteer.Page) => Promise<void>,
+  options: Record<string, any> = { args: [] }
 ) => {
   const browser = await puppeteer.launch({
     headless: !!+(process.env.HEADLESS || 0),
@@ -9,6 +10,7 @@ export const withBrowser = async (
       "--no-sandbox",
       "--disable-setuid-sandbox",
       "--disable-dev-shm-usage",
+      ...options.args,
     ],
   });
 
